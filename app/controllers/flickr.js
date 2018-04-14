@@ -1,32 +1,34 @@
-flickerApp.controller('FlickrCtrl',function($scope,Flickr,$cookies){
-// $cookies.putObject("searchText", [{}]);
-$cookies.put("userName","Vinod");
-$cookies.userName="Hello";
-$scope.userName=$cookies.userName;
-  var favoriteCookie = $cookies.get('myFavorite');
-  // Setting a cookie
-  $cookies.put('myFavorite', 'oatmeal');
-// $scope.searchTexts=$cookies.get('searchText');
+flickerApp.controller('FlickrCtrl',function($scope,Flickr,$cookies,$cookieStore){
+  
+
+// $scope.searchTexts = $cookies['searchText'];
+$scope.searchText1=[];
+// $cookieStore.put('Hello','dsyf');
+// $cookies.put('myName','vinod');
+$scope.searchTexts = $cookies.getObject('searchText');
 var pages=1;
 $scope.photos=[];
 $scope.getPhotos=function(search,page,check){
           if(check)
             $scope.photos=[];
-    
+          $scope.searchTexts = $cookies.getObject('searchText');
           $scope.searchText=search;
 	      $scope.loading=true;
-    
-   // $scope.searchText= $cookies.getObject('searchText');
-  
-   //  $cookies.putObject('searchText', $scope.searchText.push({search:search}));
+          if($scope.searchTexts)
+          $scope.searchText1=$scope.searchTexts;
+          $scope.searchText1.push({searchKey:search});
 
-   // $scope.searchTexts=$cookies.get('searchText');
+        $cookies.putObject('searchText',$scope.searchText1);
+
        var promise = Flickr.search(search, page);
         promise.then(function(data) {
             // $scope.photos = data.photos;
             angular.forEach(data.photos.photo,function(value){
                $scope.photos.push(value);
-            })
+            });
+
+            if($scope.photos.length<=0)
+                $scope.noDataFound=true;
         //     if($scope.photos.length<=0)
         //     $scope.photos = data.photos.photo;
         // else
@@ -59,8 +61,8 @@ $scope.getPhotos=function(search,page,check){
            // $(window).unbind('scroll');
            pages=pages+1;
            $scope.getPhotos($scope.searchText,pages,false);
-    }
-});
+           }
+    });
 
 
 
