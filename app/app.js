@@ -1,1 +1,1 @@
-var flickerApp = angular.module('flickr',['ngResource']);
+var flickerApp = angular.module('flickr',['ngResource','ngCookies','ui.bootstrap']);

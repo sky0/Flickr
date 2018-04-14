@@ -7,7 +7,7 @@ flickerApp.factory('Flickr', function($http, $q){
 
         self.search = function(search, page){
             var deferred = $q.defer();
-
+//set params for api
             var params = {
                 api_key: self.api_key,
                 extras:'url_m,url_c,url_l,url_h,url_o',
@@ -22,8 +22,9 @@ flickerApp.factory('Flickr', function($http, $q){
             if ((search != null && search.length > 0)) {
                 params.text = search;
             }
-            //set params for api
+            //end 
 
+//Call Api
             $http({method: 'GET', url: self.base_url, params: params}).
                 success(function(data, status, headers, config) {
                      deferred.resolve(data);
