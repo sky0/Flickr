@@ -1,30 +1,30 @@
 flickerApp.controller('FlickrCtrl',function($scope,Flickr,$cookies,$cookieStore){
   
 
-// $scope.searchTexts = $cookies['searchText'];
 $scope.searchText1=[];
-// $cookieStore.put('Hello','dsyf');
+
 // $cookies.put('myName','vinod');
 // $cookies.remove('searchText');
 
-$scope.searchTexts = $cookies.getObject('searchText');
-$scope.searchTexts = $scope.searchTexts.filter(function(elem, pos) {
-    return $scope.searchTexts.indexOf(elem) == pos;
-});                //Remove Duplicate  
+$scope.searchTexts = $cookies.getObject('searchText') ? $cookies.getObject('searchText'):[];
+                
+$scope.searchTexts = $scope.searchTexts.filter((searchText,index)=>$scope.searchTexts.indexOf(searchText) == index);  //Remove Duplicate 
 var pages=1;
 $scope.photos=[];
 $scope.getPhotos=function(search,page,check){
           $scope.noDataFound=false;
           
-          $scope.searchTexts = $cookies.getObject('searchText');//Get search text from cookie 
+          $scope.searchTexts = $cookies.getObject('searchText') ? $cookies.getObject('searchText'):[];//Get search text from cookie 
+          
           $scope.searchText=search;
-          $scope.search=search;
+          $scope.search=search;                            //on select recent , put data to search input
 	      $scope.loading=true;
-          if($scope.searchTexts)                           //To upload cookie data continue
+          if($scope.searchTexts.length>0)                           //To upload cookie data continue
           $scope.searchText1=$scope.searchTexts;
           $scope.searchText1.push(search);
 
          $cookies.putObject('searchText',$scope.searchText1); //Set cookie
+         $scope.searchTexts = $scope.searchTexts.filter((searchText,index)=>$scope.searchTexts.indexOf(searchText) == index);  //Remove Duplicate 
          if(check)
             $scope.photos=[];
          var promise = Flickr.search(search, page);

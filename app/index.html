@@ -35,7 +35,7 @@
 <!--           <select ng-options="item as searchText.searchKey for searchText in searchTexts track by item.id" ng-model="selected"></select>
  -->
           <ul class="dropdown-menu" >
-            <li ng-repeat="searchText in searchTexts"><a href="javascript:void(0)" ng-click="getPhotos(searchText,1,true)" >{{searchText}}</a></li>
+            <li ng-repeat="searchText in searchTexts "><a href="javascript:void(0)" ng-click="getPhotos(searchText,1,true)" >{{searchText}}</a></li>
             
           </ul>
         </li>
