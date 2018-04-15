@@ -5,8 +5,7 @@
   "repository": "",
   "license": "",
   "devDependencies": {
-    "http-server": "^0.9.0",
-    "express": "*"
+    "http-server": "^0.9.0"
    
   },
   "scripts": {
