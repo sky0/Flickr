@@ -16,14 +16,15 @@ $scope.photos=[];
 $scope.getPhotos=function(search,page,check){
           $scope.noDataFound=false;
           
-          $scope.searchTexts = $cookies.getObject('searchText');
+          $scope.searchTexts = $cookies.getObject('searchText');//Get search text from cookie 
           $scope.searchText=search;
+          $scope.search=search;
 	      $scope.loading=true;
-          if($scope.searchTexts)
+          if($scope.searchTexts)                           //To upload cookie data continue
           $scope.searchText1=$scope.searchTexts;
           $scope.searchText1.push(search);
 
-         $cookies.putObject('searchText',$scope.searchText1);
+         $cookies.putObject('searchText',$scope.searchText1); //Set cookie
          if(check)
             $scope.photos=[];
          var promise = Flickr.search(search, page);
