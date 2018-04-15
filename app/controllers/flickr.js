@@ -5,23 +5,29 @@ flickerApp.controller('FlickrCtrl',function($scope,Flickr,$cookies,$cookieStore)
 $scope.searchText1=[];
 // $cookieStore.put('Hello','dsyf');
 // $cookies.put('myName','vinod');
+// $cookies.remove('searchText');
+
 $scope.searchTexts = $cookies.getObject('searchText');
+$scope.searchTexts = $scope.searchTexts.filter(function(elem, pos) {
+    return $scope.searchTexts.indexOf(elem) == pos;
+});                //Remove Duplicate  
 var pages=1;
 $scope.photos=[];
 $scope.getPhotos=function(search,page,check){
-          if(check)
-            $scope.photos=[];
+          $scope.noDataFound=false;
+          
           $scope.searchTexts = $cookies.getObject('searchText');
           $scope.searchText=search;
 	      $scope.loading=true;
           if($scope.searchTexts)
           $scope.searchText1=$scope.searchTexts;
-          $scope.searchText1.push({searchKey:search});
+          $scope.searchText1.push(search);
 
-        $cookies.putObject('searchText',$scope.searchText1);
-
-       var promise = Flickr.search(search, page);
-        promise.then(function(data) {
+         $cookies.putObject('searchText',$scope.searchText1);
+         if(check)
+            $scope.photos=[];
+         var promise = Flickr.search(search, page);
+         promise.then(function(data) {
             // $scope.photos = data.photos;
             angular.forEach(data.photos.photo,function(value){
                $scope.photos.push(value);
@@ -46,14 +52,14 @@ $scope.getPhotos=function(search,page,check){
     }
 
 
-    $scope.openModal=function(photo){
+$scope.openModal=function(photo){
 
         $('.photoModal').modal('show');
         $scope.currentPhoto=photo;
 
     }
 
-    $(window).scroll(function() {
+$(window).scroll(function() {
  
     if($(window).scrollTop()==($(document).height()-window.innerHeight) ) {
            // ajax call get data from server and append to the div

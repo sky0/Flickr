@@ -1,0 +1,17 @@
+{
+  "name": "Flicker",
+  "version": "0.0.0",
+  "description": "Flicker Photo App",
+  "repository": "",
+  "license": "",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "express": "*"
+   
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server ./app -a localhost -p 8080 -c-1"
+
+    }
+}

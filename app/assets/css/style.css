@@ -1,0 +1,12 @@
+.space{
+	margin: 20px;
+}
+
+.space2{
+	margin-top: 66px;
+}
+
+.fadOut:hover{
+	transform: scale(1.2);
+}
+
